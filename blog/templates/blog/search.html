@@ -1,0 +1,47 @@
+{% extends 'blog/layout.html' %}
+<html>
+<body>
+	{% block content %}
+	{% for blog in hashtag.blog_set.all %}
+	<div class="alert alert-primary" role="alert" style="padding: 30px; margin: 20px 40px;">
+        <div class="home_title" style="text-align: center; font-size: 23px; color: #424242;">
+            <h5 class="alert-heading"><b><a style="color: royalblue;">Hashtag 검색결과 페이지</a> ]</b></h4>
+            <h6 class="alert-heading"><b>Hashtag[ <a style="color: royalblue;">{{ hashtag }}</a> ]</b></h4>
+			<h4 class="alert-heading"><b>Title[ <a style="color: royalblue;">{{ blog.title }}</a> ]</b></h4>
+        </div>
+        
+        <hr style="border-color: #424242;">
+		
+		<div class="home_content"  style="text-align: right;">
+			<span class="badge badge-pill badge-secondary"><i>[ {{ blog.pub_date }} ]</i></span>
+		</div>
+
+		<div class="home_write" style="color: #585858; font-size: 18px;">
+			<p>{{ blog.body }}</p>
+		</div>
+
+		<div class="home_buttons" style="text-align: right;">
+			<a role="button" class="btn-outline-primary" href="{% url 'comment' blog.id %}">Comment</a>
+			&nbsp;&nbsp;
+			<a role="button" class="btn-outline-secondary" href="{% url 'edit' pk=blog.pk %}">Edit</a>
+			&nbsp;&nbsp;
+			<a role="button" class="btn-outline-danger" href="{% url 'remove' pk=blog.pk %}">Remove</a>
+		</div>
+
+		<hr style="border-color: #4242427c;"><hr style="border-color: #4242427c;">
+
+		<div>
+			{% for comment in blog.comments.all %}
+			<p>{{ comment }}</p>
+			<div class="button">
+				<a role="button" class="btn-outline-secondary" href="{% url 'comment_edit' blog.id comment.id %}">Edit</a>
+				&nbsp;&nbsp;
+				<a role="button" class="btn-outline-danger" href="{% url 'comment_remove' blog.id comment.id %}">Remove</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endfor %}
+	{% endblock %}
+</body>
+</html>

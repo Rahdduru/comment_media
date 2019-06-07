@@ -1,0 +1,17 @@
+{% extends 'blog/layout.html' %}
+{% block content %}
+<div class="new" style="padding: 10px 35%;">
+    <form method='POST'>
+        {% csrf_token %}
+        <div style="text-align: center; font-size: 20px;">
+            <p>Hashtag 추가</p>
+            <table class="new_table">
+            {{form.as_table}}
+            </table>
+        </div>
+        <div class="new_button" style="text-align: center; font-size: 10px;">
+            <input class="btn btn-outline-primary" type="submit" value="Submission">
+        </div>
+    </form>
+</div>
+{% endblock %}
